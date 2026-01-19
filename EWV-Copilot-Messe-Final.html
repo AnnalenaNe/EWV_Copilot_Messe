@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EWV Copilot-Messe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 50%, #e0f2f1 100%);
+            padding: 20px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 300px;
+            height: 150px;
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAABGdBTUEAALGPC/xhBQAACklpQ0NQc1JHQiBJRUM2MTk2Ni0yLjEAAEiJnVN3WJP3Fj7f92UPVkLY8LGXbIEAIiOsCMgQWaIQkgBhhBASQMWFiApWFBURnEhVxILVCkidiOKgKLhnQYqIWotVXDjuH9yntX167+3t+9f7vOec5/zOec8PgBESJpHmomoAOVKFPDrYH49PSMTJvYACFUjgBCAQ5svCZwXFAADwA3l4fnSwP/wBr28AAgBw1S4kEsfh/4O6UCZXACCRAOAiEucLAZBSAMguVMgUAMgYALBTs2QKAJQAAGx5fEIiAKoNAOz0ST4FANipk9wXANiiHKkIAI0BAJkoRyQCQLsAYFWBUiwCwMIAoKxAIi4EwK4BgFm2MkcCgL0FAHaOWJAPQGAAgJlCLMwAIDgCAEMeE80DIEwDoDDSv+CpX3CFuEgBAMDLlc2XS9IzFLiV0Bp38vDg4iHiwmyxQmEXKRBmCeQinJebIxNI5wNMzgwAABr50cH+OD+Q5+bk4eZm52zv9MWi/mvwbyI+IfHf/ryMAgQAEE7P79pf5eXWA3DHAbB1v2upWwDaVgBo3/ldM9sJoFoK0Hr5i3k4/EAenqFQyDwdHAoLC+0lYqG9MOOLPv8z4W/gi372/EAe/tt68ABxmkCZrcCjg/1xYW52rlKO58sEQjFu9+cj/seFf/2OKdHiNLFcLBWK8ViJuFAiTcd5uVKRRCHJleIS6X8y8R+W/QmTdw0ArIZPwE62B7XLbMB+7gECiw5Y0nYAQH7zLYwaC5EAEGc0Mnn3AACTv/mPQCsBAM2XpOMAALzoGFyolBdMxggAAESggSqwQQcMwRSswA6cwR28wBcCYQZEQAwkwDwQQgbkgBwKoRiWQRlUwDrYBLWwAxqgEZrhELTBMTgN5+ASXIHrcBcGYBiewhi8hgkEQcgIE2EhOogRYo7YIs4IF5mOBCJhSDSSgKQg6YgUUSLFyHKkAqlCapFdSCPyLXIUOY1cQPqQ28ggMor8irxHMZSBslED1AJ1QLmoHxqKxqBz0XQ0D12AlqJr0Rq0Hj2AtqKn0UvodXQAfYqOY4DRMQ5mjNlhXIyHRWCJWBomxxZj5Vg1Vo81Yx1YN3YVG8CeYe8IJAKLgBPsCF6EEMJsgpCQR1hGLEUqEuOEQv4');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: top right;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .title {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #006533;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #6A797E;
+        }
+
+        .map-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            aspect-ratio: 4/3;
+            background: #eaf3f6;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 101, 51, 0.2);
+            animation: fadeInUp 0.5s ease-out 0.2s both;
+        }
+
+        .island-bg {
+            position: absolute;
+            inset: 0;
+            opacity: 0.3;
+        }
+
+        .room-marker {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
+        }
+
+        .room-marker:hover {
+            transform: translate(-50%, -50%) scale(1.15) translateY(-5px);
+        }
+
+        .room-marker:active {
+            transform: translate(-50%, -50%) scale(0.95);
+        }
+
+        .marker-glow {
+            position: absolute;
+            inset: -10px;
+            border-radius: 50%;
+            opacity: 0.5;
+            filter: blur(20px);
+            transition: opacity 0.3s;
+        }
+
+        .room-marker:hover .marker-glow {
+            opacity: 1;
+        }
+
+        .marker-circle {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .marker-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .marker-label {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 10px;
+            padding: 6px 16px;
+            background: var(--room-color);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .room-marker:hover .marker-label {
+            opacity: 1;
+        }
+
+        .pulse-ring {
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .legend {
+            text-align: center;
+            margin-top: 30px;
+            color: #6A797E;
+            animation: fadeInUp 0.5s ease-out 0.4s both;
+        }
+
+        .legend strong {
+            font-weight: 600;
+        }
+
+        /* Live Clock */
+        .live-clock {
+            text-align: center;
+            margin-top: 40px;
+            animation: fadeInUp 0.5s ease-out 0.6s both;
+        }
+
+        .clock-display {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: #006533;
+            letter-spacing: 0.05em;
+            text-shadow: 0 2px 10px rgba(0, 101, 51, 0.1);
+        }
+
+        .clock-date {
+            font-size: 1.1rem;
+            color: #6A797E;
+            margin-top: 5px;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 30px;
+            max-width: 500px;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            animation: scaleIn 0.3s ease-out;
+        }
+
+        .modal-header {
+            padding: 40px;
+            color: white;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .modal-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .modal-icon {
+            width: 50px;
+            height: 50px;
+        }
+
+        .modal-title {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .modal-time {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .modal-content {
+            padding: 30px;
+        }
+
+        .modal-detail {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .detail-icon-wrapper {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .detail-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .detail-content {
+            flex: 1;
+        }
+
+        .detail-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #6A797E;
+            margin-bottom: 3px;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: #3f3e45;
+            font-size: 1.1rem;
+        }
+
+        .modal-button {
+            width: 100%;
+            padding: 15px;
+            border-radius: 15px;
+            border: none;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .modal-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.3;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2rem;
+            }
+            .subtitle {
+                font-size: 1rem;
+            }
+            .marker-circle {
+                width: 60px;
+                height: 60px;
+            }
+            .marker-icon {
+                width: 30px;
+                height: 30px;
+            }
+            .clock-display {
+                font-size: 2.5rem;
+            }
+            .clock-date {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">EWV Copilot-Messe</h1>
+            <p class="subtitle">Entdecke die Anwendungsfälle – Klicke auf die Standorte!</p>
+        </div>
+
+        <div class="map-container">
+            <!-- SVG Background -->
+            <svg class="island-bg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <defs>
+                    <linearGradient id="islandGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#AFCA0B;stop-opacity:0.3" />
+                        <stop offset="50%" style="stop-color:#006533;stop-opacity:0.2" />
+                        <stop offset="100%" style="stop-color:#6A797E;stop-opacity:0.15" />
+                    </linearGradient>
+                </defs>
+                <path d="M 10,40 Q 20,25 35,30 T 55,35 Q 70,30 80,40 T 85,60 Q 80,75 65,80 T 40,85 Q 20,80 10,65 Z" 
+                      fill="url(#islandGradient)" />
+                <path d="M 30,45 Q 40,40 50,45 T 70,55" 
+                      stroke="#AFCA0B" stroke-width="0.5" fill="none" opacity="0.3" stroke-dasharray="2,2" />
+            </svg>
+
+            <!-- Room Markers -->
+            <div id="roomMarkers"></div>
+        </div>
+
+        <div class="legend">
+            💡 <strong>Tipp:</strong> Tippe auf einen Standort für mehr Informationen
+        </div>
+
+        <!-- Live Clock -->
+        <div class="live-clock">
+            <div class="clock-display" id="liveTime">00:00:00</div>
+            <div class="clock-date" id="liveDate">Montag, 19. Januar 2026</div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <div class="modal-header" id="modalHeader">
+                <button class="modal-close" onclick="closeModal()">×</button>
+                <div class="modal-icon-wrapper" id="modalIconWrapper"></div>
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <p class="modal-time" id="modalTime"></p>
+            </div>
+            <div class="modal-content">
+                <div class="modal-detail">
+                    <div class="detail-icon-wrapper" id="topicIconBg">
+                        <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                    </div>
+                    <div class="detail-content">
+                        <div class="detail-label">Thema</div>
+                        <div class="detail-value" id="modalTopic"></div>
+                    </div>
+                </div>
+
+                <div class="modal-detail">
+                    <div class="detail-icon-wrapper" id="speakerIconBg">
+                        <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <div class="detail-content">
+                        <div class="detail-label">Speaker</div>
+                        <div class="detail-value" id="modalSpeaker"></div>
+                    </div>
+                </div>
+
+                <div class="modal-detail">
+                    <div class="detail-icon-wrapper" id="durationIconBg">
+                        <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </div>
+                    <div class="detail-content">
+                        <div class="detail-label">Dauer</div>
+                        <div class="detail-value" id="modalDuration"></div>
+                    </div>
+                </div>
+
+                <button class="modal-button" id="modalButton" onclick="closeModal()">
+                    Schließen
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const rooms = [
+            {
+                id: 'eifelblick',
+                name: 'Eifelblick',
+                position: { x: 15, y: 20 },
+                icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M20 21a2 2 0 0 0 2-2v-3.851c0-1.39-2-2.962-2-4.829V8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v11a2 2 0 0 0 2 2z"/><path d="M 22 16 L 2 16"/><path d="M4 21a2 2 0 0 1-2-2v-3.851c0-1.39 2-2.962 2-4.829V8a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v11a2 2 0 0 1-2 2z"/><path d="M9 7V4a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1v3"/></svg>`,
+                color: '#AFCA0B',
+                speaker: 'Eva Cremer & Heike Asten',
+                duration: '20 Min.',
+                topic: 'Automatisierter E-Mail Versand',
+                time: ['11:10 - 11:30 Uhr', '11:40 - 12:00 Uhr', '12:10 - 12:30 Uhr']
+            },
+            {
+                id: 'michael',
+                name: 'Michael',
+                position: { x: 75, y: 15 },
+                icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20a6 6 0 0 0-12 0"/><circle cx="12" cy="10" r="4"/><circle cx="12" cy="12" r="10"/></svg>`,
+                color: '#006533',
+                speaker: 'Robert Dohmen & Kai Hilger',
+                duration: '20 Min.',
+                topic: 'Intelligentes Wissensmanagement',
+                time: ['11:10 - 11:30 Uhr', '11:40 - 12:00 Uhr', '12:10 - 12:30 Uhr']
+            },
+            {
+                id: 'kantine',
+                name: 'Kantine',
+                position: { x: 45, y: 35 },
+                icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>`,
+                color: '#AFCA0B',
+                speaker: 'René Pletz',
+                duration: '20 Min.',
+                topic: 'E-Mails clever zusammenfassen & Termine in Outlook speichern',
+                time: ['11:10 - 11:30 Uhr', '11:40 - 12:00 Uhr', '12:10 - 12:30 Uhr']
+            },
+            {
+                id: 'ketschenburg',
+                name: 'Ketschenburg',
+                position: { x: 25, y: 55 },
+                icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5V3"/><path d="M14 5V3"/><path d="M15 21v-3a3 3 0 0 0-6 0v3"/><path d="M18 3v8"/><path d="M18 5H6"/><path d="M22 11H2"/><path d="M22 9v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9"/><path d="M6 3v8"/></svg>`,
+                color: '#006533',
+                speaker: 'Anja Lüßem, Sandra Boehmer & Anna-Lena Weißenbach',
+                duration: '20 Min.',
+                topic: 'Wissensbot Helga',
+                time: ['11:10 - 11:30 Uhr', '11:40 - 12:00 Uhr', '12:10 - 12:30 Uhr']
+            },
+            {
+                id: 'raum276',
+                name: 'Raum 276',
+                position: { x: 70, y: 50 },
+                icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22a1 1 0 0 1-1-1v-4a1 1 0 0 1 .445-.832l3-2a1 1 0 0 1 1.11 0l3 2A1 1 0 0 1 22 17v4a1 1 0 0 1-1 1z"/><path d="M18 10a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 .601.2"/><path d="M18 22v-3"/><circle cx="10" cy="10" r="3"/></svg>`,
+                color: '#AFCA0B',
+                speaker: 'Andy Stieg',
+                duration: '20 Min.',
+                topic: 'Aufarbeitung von Notizen und Bündelung der Erkenntnisse',
+                time: ['11:10 - 11:30 Uhr', '11:40 - 12:00 Uhr', '12:10 - 12:30 Uhr']
+            },
+            {
+                id: 'indemann',
+                name: 'Indemann',
+                position: { x: 85, y: 70 },
+                icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><path d="m9 20 3-6 3 6"/><path d="m6 8 6 2 6-2"/><path d="M12 10v4"/></svg>`,
+                color: '#006533',
+                speaker: 'Christopher Enusiahu',
+                duration: '20 Min.',
+                topic: 'Intelligenter Abwesenheitsassistent',
+                time: ['11:10 - 11:30 Uhr', '11:40 - 12:00 Uhr', '12:10 - 12:30 Uhr']
+            },
+            {
+                id: 'sophienhoehe',
+                name: 'Sophienhöhe',
+                position: { x: 50, y: 75 },
+                icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/><path d="M4.14 15.08c2.62-1.57 5.24-1.43 7.86.42 2.74 1.94 5.49 2 8.23.19"/></svg>`,
+                color: '#AFCA0B',
+                speaker: 'Udo Müllenberg',
+                duration: '20 Min.',
+                topic: 'Clever geplante Recherche',
+                time: ['11:10 - 11:30 Uhr', '11:40 - 12:00 Uhr', '12:10 - 12:30 Uhr']
+            }
+        ];
+
+        const markersContainer = document.getElementById('roomMarkers');
+
+        rooms.forEach((room, index) => {
+            const marker = document.createElement('div');
+            marker.className = 'room-marker';
+            marker.style.left = `${room.position.x}%`;
+            marker.style.top = `${room.position.y}%`;
+            marker.style.setProperty('--room-color', room.color);
+            marker.style.animationDelay = `${index * 0.1}s`;
+            
+            marker.innerHTML = `
+                <div class="marker-glow" style="background: ${room.color};"></div>
+                <div class="marker-circle" style="border: 4px solid ${room.color};">
+                    <div class="marker-icon" style="color: ${room.color};">
+                        ${room.icon}
+                    </div>
+                </div>
+                <div class="pulse-ring" style="border: 2px solid ${room.color};"></div>
+                <div class="marker-label">${room.name}</div>
+            `;
+            
+            marker.onclick = () => openModal(room);
+            markersContainer.appendChild(marker);
+        });
+
+        function openModal(room) {
+            const overlay = document.getElementById('modalOverlay');
+            const header = document.getElementById('modalHeader');
+            const iconWrapper = document.getElementById('modalIconWrapper');
+            
+            header.style.background = `linear-gradient(135deg, ${room.color} 0%, ${room.color}dd 100%)`;
+            iconWrapper.innerHTML = `<div class="modal-icon" style="color: white;">${room.icon}</div>`;
+            
+            document.getElementById('modalTitle').textContent = room.name;
+            
+            // Wenn time ein Array ist, zeige alle Zeiten untereinander
+            if (Array.isArray(room.time)) {
+                document.getElementById('modalTime').innerHTML = room.time.join('<br>');
+            } else {
+                document.getElementById('modalTime').textContent = room.time;
+            }
+            
+            document.getElementById('modalTopic').textContent = room.topic;
+            document.getElementById('modalSpeaker').textContent = room.speaker;
+            document.getElementById('modalDuration').textContent = room.duration;
+            document.getElementById('modalButton').style.background = room.color;
+            
+            ['topicIconBg', 'speakerIconBg', 'durationIconBg'].forEach(id => {
+                document.getElementById(id).style.background = `${room.color}20`;
+                document.getElementById(id).style.color = room.color;
+            });
+            
+            overlay.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+        }
+
+        document.getElementById('modalOverlay').onclick = (e) => {
+            if (e.target.id === 'modalOverlay') closeModal();
+        };
+
+        // Live Clock Function
+        function updateClock() {
+            const now = new Date();
+            
+            // Zeit formatieren (HH:MM:SS)
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const timeString = `${hours}:${minutes}:${seconds}`;
+            
+            // Datum formatieren (Wochentag, Tag. Monat Jahr)
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateString = now.toLocaleDateString('de-DE', options);
+            
+            // Anzeigen
+            document.getElementById('liveTime').textContent = timeString;
+            document.getElementById('liveDate').textContent = dateString;
+        }
+
+        // Uhr sofort starten und jede Sekunde aktualisieren
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+</html>
