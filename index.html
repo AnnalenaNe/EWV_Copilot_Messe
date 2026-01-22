@@ -410,16 +410,15 @@
             <!-- SVG Background -->
             <svg class="island-bg" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <defs>
-                    <linearGradient id="islandGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <linearGradient id="roadGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" style="stop-color:#AFCA0B;stop-opacity:0.3" />
                         <stop offset="50%" style="stop-color:#006533;stop-opacity:0.2" />
                         <stop offset="100%" style="stop-color:#6A797E;stop-opacity:0.15" />
                     </linearGradient>
                 </defs>
-                <path d="M 10,40 Q 20,25 35,30 T 55,35 Q 70,30 80,40 T 85,60 Q 80,75 65,80 T 40,85 Q 20,80 10,65 Z" 
-                      fill="url(#islandGradient)" />
-                <path d="M 30,45 Q 40,40 50,45 T 70,55" 
-                      stroke="#AFCA0B" stroke-width="0.5" fill="none" opacity="0.3" stroke-dasharray="2,2" />
+                <!-- Kurvige Straße von unten links nach oben rechts -->
+                <path d="M 0,75 Q 20,70 25,55 Q 30,40 45,35 Q 60,30 70,25 Q 85,18 100,15 L 105,25 Q 87,28 72,35 Q 62,40 47,45 Q 32,50 27,65 Q 22,80 0,85 Z" 
+                      fill="url(#roadGradient)" />
             </svg>
 
             <!-- Room Markers -->
@@ -654,4 +653,5 @@
     </script>
 </body>
 </html>
+
 
