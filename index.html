@@ -573,7 +573,6 @@
             marker.style.left = `${room.position.x}%`;
             marker.style.top = `${room.position.y}%`;
             marker.style.setProperty('--room-color', room.color);
-            marker.style.animationDelay = `${index * 0.1}s`;
             
             marker.innerHTML = `
                 <div class="marker-glow" style="background: ${room.color};"></div>
