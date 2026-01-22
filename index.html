@@ -17,36 +17,16 @@
             min-height: 100vh;
             background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 50%, #e0f2f1 100%);
             padding: 20px;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 300px;
-            height: 150px;
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAABGdBTUEAALGPC/xhBQAACklpQ0NQc1JHQiBJRUM2MTk2Ni0yLjEAAEiJnVN3WJP3Fj7f92UPVkLY8LGXbIEAIiOsCMgQWaIQkgBhhBASQMWFiApWFBURnEhVxILVCkidiOKgKLhnQYqIWotVXDjuH9yntX167+3t+9f7vOec5/zOec8PgBESJpHmomoAOVKFPDrYH49PSMTJvYACFUjgBCAQ5svCZwXFAADwA3l4fnSwP/wBr28AAgBw1S4kEsfh/4O6UCZXACCRAOAiEucLAZBSAMguVMgUAMgYALBTs2QKAJQAAGx5fEIiAKoNAOz0ST4FANipk9wXANiiHKkIAI0BAJkoRyQCQLsAYFWBUiwCwMIAoKxAIi4EwK4BgFm2MkcCgL0FAHaOWJAPQGAAgJlCLMwAIDgCAEMeE80DIEwDoDDSv+CpX3CFuEgBAMDLlc2XS9IzFLiV0Bp38vDg4iHiwmyxQmEXKRBmCeQinJebIxNI5wNMzgwAABr50cH+OD+Q5+bk4eZm52zv9MWi/mvwbyI+IfHf/ryMAgQAEE7P79pf5eXWA3DHAbB1v2upWwDaVgBo3/ldM9sJoFoK0Hr5i3k4/EAenqFQyDwdHAoLC+0lYqG9MOOLPv8z4W/gi372/EAe/tt68ABxmkCZrcCjg/1xYW52rlKO58sEQjFu9+cj/seFf/2OKdHiNLFcLBWK8ViJuFAiTcd5uVKRRCHJleIS6X8y8R+W/QmTdw0ArIZPwE62B7XLbMB+7gECiw5Y0nYAQH7zLYwaC5EAEGc0Mnn3AACTv/mPQCsBAM2XpOMAALzoGFyolBdMxggAAESggSqwQQcMwRSswA6cwR28wBcCYQZEQAwkwDwQQgbkgBwKoRiWQRlUwDrYBLWwAxqgEZrhELTBMTgN5+ASXIHrcBcGYBiewhi8hgkEQcgIE2EhOogRYo7YIs4IF5mOBCJhSDSSgKQg6YgUUSLFyHKkAqlCapFdSCPyLXIUOY1cQPqQ28ggMor8irxHMZSBslED1AJ1QLmoHxqKxqBz0XQ0D12AlqJr0Rq0Hj2AtqKn0UvodXQAfYqOY4DRMQ5mjNlhXIyHRWCJWBomxxZj5Vg1Vo81Yx1YN3YVG8CeYe8IJAKLgBPsCF6EEMJsgpCQR1hGLEUqEuOEQv4');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: top right;
-            opacity: 0.15;
-            pointer-events: none;
-            z-index: 0;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            position: relative;
-            z-index: 1;
         }
 
         .header {
             text-align: center;
             margin-bottom: 40px;
-            animation: fadeInUp 0.5s ease-out;
         }
 
         .title {
@@ -70,9 +50,8 @@
             aspect-ratio: 4/3;
             background: #eaf3f6;
             border-radius: 30px;
-            overflow: hidden;
+            overflow: visible;
             box-shadow: 0 20px 40px rgba(0, 101, 51, 0.2);
-            animation: fadeInUp 0.5s ease-out 0.2s both;
         }
 
         .island-bg {
@@ -85,16 +64,12 @@
             position: absolute;
             transform: translate(-50%, -50%);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s;
             z-index: 10;
         }
 
         .room-marker:hover {
-            transform: translate(-50%, -50%) scale(1.15) translateY(-5px);
-        }
-
-        .room-marker:active {
-            transform: translate(-50%, -50%) scale(0.95);
+            transform: translate(-50%, -50%) scale(1.15);
         }
 
         .marker-glow {
@@ -160,18 +135,15 @@
             text-align: center;
             margin-top: 30px;
             color: #6A797E;
-            animation: fadeInUp 0.5s ease-out 0.4s both;
         }
 
         .legend strong {
             font-weight: 600;
         }
 
-        /* Live Clock */
         .live-clock {
             text-align: center;
             margin-top: 40px;
-            animation: fadeInUp 0.5s ease-out 0.6s both;
         }
 
         .clock-display {
@@ -180,7 +152,6 @@
             font-weight: 700;
             color: #006533;
             letter-spacing: 0.05em;
-            text-shadow: 0 2px 10px rgba(0, 101, 51, 0.1);
         }
 
         .clock-date {
@@ -189,7 +160,6 @@
             margin-top: 5px;
         }
 
-        /* Modal */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -200,7 +170,6 @@
             justify-content: center;
             z-index: 1000;
             padding: 20px;
-            animation: fadeIn 0.3s ease-out;
         }
 
         .modal-overlay.active {
@@ -214,7 +183,6 @@
             width: 100%;
             overflow: hidden;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-            animation: scaleIn 0.3s ease-out;
         }
 
         .modal-header {
@@ -251,7 +219,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            animation: float 3s ease-in-out infinite;
         }
 
         .modal-icon {
@@ -329,34 +296,6 @@
 
         .modal-button:hover {
             transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
         }
 
         @keyframes pulse {
@@ -368,11 +307,6 @@
                 transform: scale(1.1);
                 opacity: 0.3;
             }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
         }
 
         @media (max-width: 768px) {
@@ -393,9 +327,6 @@
             .clock-display {
                 font-size: 2.5rem;
             }
-            .clock-date {
-                font-size: 0.9rem;
-            }
         }
     </style>
 </head>
@@ -407,7 +338,6 @@
         </div>
 
         <div class="map-container">
-            <!-- SVG Background -->
             <svg class="island-bg" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <defs>
                     <linearGradient id="roadGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -416,12 +346,9 @@
                         <stop offset="100%" style="stop-color:#6A797E;stop-opacity:0.15" />
                     </linearGradient>
                 </defs>
-                <!-- Kurvige Straße von unten links nach oben rechts -->
                 <path d="M 0,75 Q 20,70 25,55 Q 30,40 45,35 Q 60,30 70,25 Q 85,18 100,15 L 105,25 Q 87,28 72,35 Q 62,40 47,45 Q 32,50 27,65 Q 22,80 0,85 Z" 
                       fill="url(#roadGradient)" />
             </svg>
-
-            <!-- Room Markers -->
             <div id="roomMarkers"></div>
         </div>
 
@@ -429,16 +356,14 @@
             💡 <strong>Tipp:</strong> Tippe auf einen Standort für mehr Informationen
         </div>
 
-        <!-- Live Clock -->
         <div class="live-clock">
             <div class="clock-display" id="liveTime">00:00:00</div>
             <div class="clock-date" id="liveDate">Montag, 19. Januar 2026</div>
         </div>
     </div>
 
-    <!-- Modal -->
     <div class="modal-overlay" id="modalOverlay">
-        <div class="modal" id="modal">
+        <div class="modal">
             <div class="modal-header" id="modalHeader">
                 <button class="modal-close" onclick="closeModal()">×</button>
                 <div class="modal-icon-wrapper" id="modalIconWrapper"></div>
@@ -459,7 +384,6 @@
                         <div class="detail-value" id="modalTopic"></div>
                     </div>
                 </div>
-
                 <div class="modal-detail">
                     <div class="detail-icon-wrapper" id="speakerIconBg">
                         <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -472,7 +396,6 @@
                         <div class="detail-value" id="modalSpeaker"></div>
                     </div>
                 </div>
-
                 <div class="modal-detail">
                     <div class="detail-icon-wrapper" id="durationIconBg">
                         <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -485,22 +408,18 @@
                         <div class="detail-value" id="modalDuration"></div>
                     </div>
                 </div>
-
-                <button class="modal-button" id="modalButton" onclick="closeModal()">
-                    Schließen
-                </button>
+                <button class="modal-button" id="modalButton" onclick="closeModal()">Schließen</button>
             </div>
         </div>
     </div>
 
     <script>
-        const rooms = [
-            // Obere Reihe: Fernglas, Burg, Besteck
+        var rooms = [
             {
                 id: 'eifelblick',
                 name: 'Eifelblick',
                 position: { x: 20, y: 35 },
-                icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M20 21a2 2 0 0 0 2-2v-3.851c0-1.39-2-2.962-2-4.829V8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v11a2 2 0 0 0 2 2z"/><path d="M 22 16 L 2 16"/><path d="M4 21a2 2 0 0 1-2-2v-3.851c0-1.39 2-2.962 2-4.829V8a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v11a2 2 0 0 1-2 2z"/><path d="M9 7V4a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1v3"/></svg>`,
+                icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M20 21a2 2 0 0 0 2-2v-3.851c0-1.39-2-2.962-2-4.829V8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v11a2 2 0 0 0 2 2z"/><path d="M 22 16 L 2 16"/><path d="M4 21a2 2 0 0 1-2-2v-3.851c0-1.39 2-2.962 2-4.829V8a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v11a2 2 0 0 1-2 2z"/><path d="M9 7V4a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1v3"/></svg>',
                 color: '#AFCA0B',
                 speaker: 'Heike A. & Eva. C.',
                 duration: '20 Min.',
@@ -511,7 +430,7 @@
                 id: 'ketschenburg',
                 name: 'Ketschenburg',
                 position: { x: 50, y: 35 },
-                icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5V3"/><path d="M14 5V3"/><path d="M15 21v-3a3 3 0 0 0-6 0v3"/><path d="M18 3v8"/><path d="M18 5H6"/><path d="M22 11H2"/><path d="M22 9v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9"/><path d="M6 3v8"/></svg>`,
+                icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 5V3"/><path d="M14 5V3"/><path d="M15 21v-3a3 3 0 0 0-6 0v3"/><path d="M18 3v8"/><path d="M18 5H6"/><path d="M22 11H2"/><path d="M22 9v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9"/><path d="M6 3v8"/></svg>',
                 color: '#006533',
                 speaker: 'Anja L., Sandra B. & Anna-Lena W.',
                 duration: '20 Min.',
@@ -522,19 +441,18 @@
                 id: 'kantine',
                 name: 'Kantine',
                 position: { x: 80, y: 35 },
-                icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>`,
+                icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>',
                 color: '#AFCA0B',
                 speaker: 'René P.',
                 duration: '20 Min.',
                 topic: 'E-Mails clever zusammenfassen & Termine in Outlook speichern',
                 time: ['10:55 - 11:15 Uhr', '11:25 - 11:45 Uhr', '11:55 - 12:15 Uhr']
             },
-            // Untere Reihe: Person, Berg, Markierung
             {
                 id: 'michael',
                 name: 'Michael',
                 position: { x: 20, y: 65 },
-                icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20a6 6 0 0 0-12 0"/><circle cx="12" cy="10" r="4"/><circle cx="12" cy="12" r="10"/></svg>`,
+                icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 20a6 6 0 0 0-12 0"/><circle cx="12" cy="10" r="4"/><circle cx="12" cy="12" r="10"/></svg>',
                 color: '#006533',
                 speaker: 'Oni',
                 duration: '20 Min.',
@@ -545,7 +463,7 @@
                 id: 'sophienhoehe',
                 name: 'Sophienhöhe',
                 position: { x: 50, y: 65 },
-                icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/><path d="M4.14 15.08c2.62-1.57 5.24-1.43 7.86.42 2.74 1.94 5.49 2 8.23.19"/></svg>`,
+                icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/><path d="M4.14 15.08c2.62-1.57 5.24-1.43 7.86.42 2.74 1.94 5.49 2 8.23.19"/></svg>',
                 color: '#AFCA0B',
                 speaker: 'Udo M.',
                 duration: '20 Min.',
@@ -556,7 +474,7 @@
                 id: 'foyer',
                 name: 'Foyer',
                 position: { x: 80, y: 65 },
-                icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>`,
+                icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>',
                 color: '#006533',
                 speaker: 'Robert D. & Kai H.',
                 duration: '20 Min.',
@@ -565,56 +483,51 @@
             }
         ];
 
-        const markersContainer = document.getElementById('roomMarkers');
-
-        rooms.forEach((room, index) => {
-            const marker = document.createElement('div');
+        var container = document.getElementById('roomMarkers');
+        
+        for (var i = 0; i < rooms.length; i++) {
+            var room = rooms[i];
+            var marker = document.createElement('div');
             marker.className = 'room-marker';
-            marker.style.left = `${room.position.x}%`;
-            marker.style.top = `${room.position.y}%`;
+            marker.style.left = room.position.x + '%';
+            marker.style.top = room.position.y + '%';
             marker.style.setProperty('--room-color', room.color);
             
-            marker.innerHTML = `
-                <div class="marker-glow" style="background: ${room.color};"></div>
-                <div class="marker-circle" style="border: 4px solid ${room.color};">
-                    <div class="marker-icon" style="color: ${room.color};">
-                        ${room.icon}
-                    </div>
-                </div>
-                <div class="pulse-ring" style="border: 2px solid ${room.color};"></div>
-                <div class="marker-label">${room.name}</div>
-            `;
+            marker.innerHTML = '<div class="marker-glow" style="background: ' + room.color + ';"></div>' +
+                '<div class="marker-circle" style="border: 4px solid ' + room.color + ';">' +
+                    '<div class="marker-icon" style="color: ' + room.color + ';">' + room.icon + '</div>' +
+                '</div>' +
+                '<div class="pulse-ring" style="border: 2px solid ' + room.color + ';"></div>' +
+                '<div class="marker-label">' + room.name + '</div>';
             
-            marker.onclick = () => openModal(room);
-            markersContainer.appendChild(marker);
-        });
+            marker.onclick = (function(r) {
+                return function() { openModal(r); };
+            })(room);
+            
+            container.appendChild(marker);
+        }
 
         function openModal(room) {
-            const overlay = document.getElementById('modalOverlay');
-            const header = document.getElementById('modalHeader');
-            const iconWrapper = document.getElementById('modalIconWrapper');
+            var overlay = document.getElementById('modalOverlay');
+            var header = document.getElementById('modalHeader');
+            var iconWrapper = document.getElementById('modalIconWrapper');
             
-            header.style.background = `linear-gradient(135deg, ${room.color} 0%, ${room.color}dd 100%)`;
-            iconWrapper.innerHTML = `<div class="modal-icon" style="color: white;">${room.icon}</div>`;
+            header.style.background = 'linear-gradient(135deg, ' + room.color + ' 0%, ' + room.color + 'dd 100%)';
+            iconWrapper.innerHTML = '<div class="modal-icon" style="color: white;">' + room.icon + '</div>';
             
             document.getElementById('modalTitle').textContent = room.name;
-            
-            // Wenn time ein Array ist, zeige alle Zeiten untereinander
-            if (Array.isArray(room.time)) {
-                document.getElementById('modalTime').innerHTML = room.time.join('<br>');
-            } else {
-                document.getElementById('modalTime').textContent = room.time;
-            }
-            
+            document.getElementById('modalTime').innerHTML = room.time.join('<br>');
             document.getElementById('modalTopic').textContent = room.topic;
             document.getElementById('modalSpeaker').textContent = room.speaker;
             document.getElementById('modalDuration').textContent = room.duration;
             document.getElementById('modalButton').style.background = room.color;
             
-            ['topicIconBg', 'speakerIconBg', 'durationIconBg'].forEach(id => {
-                document.getElementById(id).style.background = `${room.color}20`;
-                document.getElementById(id).style.color = room.color;
-            });
+            document.getElementById('topicIconBg').style.background = room.color + '20';
+            document.getElementById('topicIconBg').style.color = room.color;
+            document.getElementById('speakerIconBg').style.background = room.color + '20';
+            document.getElementById('speakerIconBg').style.color = room.color;
+            document.getElementById('durationIconBg').style.background = room.color + '20';
+            document.getElementById('durationIconBg').style.color = room.color;
             
             overlay.classList.add('active');
         }
@@ -623,30 +536,24 @@
             document.getElementById('modalOverlay').classList.remove('active');
         }
 
-        document.getElementById('modalOverlay').onclick = (e) => {
+        document.getElementById('modalOverlay').onclick = function(e) {
             if (e.target.id === 'modalOverlay') closeModal();
         };
 
-        // Live Clock Function
         function updateClock() {
-            const now = new Date();
+            var now = new Date();
+            var hours = String(now.getHours()).padStart(2, '0');
+            var minutes = String(now.getMinutes()).padStart(2, '0');
+            var seconds = String(now.getSeconds()).padStart(2, '0');
+            var timeString = hours + ':' + minutes + ':' + seconds;
             
-            // Zeit formatieren (HH:MM:SS)
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            const timeString = `${hours}:${minutes}:${seconds}`;
+            var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            var dateString = now.toLocaleDateString('de-DE', options);
             
-            // Datum formatieren (Wochentag, Tag. Monat Jahr)
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            const dateString = now.toLocaleDateString('de-DE', options);
-            
-            // Anzeigen
             document.getElementById('liveTime').textContent = timeString;
             document.getElementById('liveDate').textContent = dateString;
         }
 
-        // Uhr sofort starten und jede Sekunde aktualisieren
         updateClock();
         setInterval(updateClock, 1000);
     </script>
